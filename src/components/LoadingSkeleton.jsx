@@ -1,97 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import { Cpu } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
-const LOADING_MESSAGES = [
-  "Analyzing pitch conditions & moisture levels...",
-  "Studying player historical matchup matrices...",
-  "Calculating dynamic win probability ratios...",
-  "Formulating optimal bowling rotation schemes...",
-  "Synthesizing field placement arrangements...",
-  "Structuring optimal playing XI combinations...",
-  "Finalizing comprehensive tactical game plan..."
+const messages = [
+  'Analyzing pitch conditions...',
+  'Studying player matchups...',
+  'Calculating win probability...',
+  'Building bowling rotation...',
+  'Finalizing tactical plan...',
 ];
 
+function SkeletonBlock({ width = '100%', height = 16, style = {} }) {
+  return (
+    <div
+      className="skeleton"
+      style={{ width, height, borderRadius: 6, ...style }}
+    />
+  );
+}
+
 export default function LoadingSkeleton() {
-  const [messageIndex, setMessageIndex] = useState(0);
+  const [msgIndex, setMsgIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMessageIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
-    }, 1500);
+    const interval = setInterval(
+      () => setMsgIndex((i) => (i + 1) % messages.length),
+      1500
+    );
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="space-y-8 animate-skeleton-pulse fade-in">
-      {/* Loading Status Indicator */}
-      <div className="bg-cricket-card p-6 rounded-2xl border border-cricket-border flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
-        <div className="w-16 h-16 rounded-full bg-cricket-cyan/10 border border-cricket-cyan/30 flex items-center justify-center text-cricket-cyan animate-spin duration-3000">
-          <Cpu className="w-8 h-8" />
+    <div style={{ padding: '24px' }} className="page-enter">
+      {/* Cycling message */}
+      <div style={{
+        textAlign: 'center', marginBottom: 32,
+        color: '#38bdf8', fontSize: 14, fontFamily: 'Inter, sans-serif',
+        fontWeight: 'bold', letterSpacing: '0.05em'
+      }}>
+        ⚡ {messages[msgIndex]}
+      </div>
+
+      {/* Match Overview card skeleton */}
+      <div className="cricket-card" style={{ padding: 20, marginBottom: 16 }}>
+        <SkeletonBlock width={140} height={14} style={{ marginBottom: 12 }} />
+        <SkeletonBlock width="100%" height={12} style={{ marginBottom: 8 }} />
+        <SkeletonBlock width="80%" height={12} />
+      </div>
+
+      {/* Win Probability skeleton */}
+      <div className="cricket-card" style={{ padding: 20, marginBottom: 16, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <SkeletonBlock width={120} height={14} style={{ marginBottom: 12 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 100 }}>
+            <SkeletonBlock width={80} height={80} style={{ borderRadius: '50%' }} />
+          </div>
         </div>
-        <div className="space-y-1">
-          <h3 className="text-xl font-bold font-display text-white tracking-widest uppercase">
-            COMPILING AI TACTICS
-          </h3>
-          <p className="text-cricket-cyan font-mono text-sm tracking-wide h-6 transition-all duration-300">
-            {LOADING_MESSAGES[messageIndex]}
-          </p>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <SkeletonBlock width={120} height={14} style={{ marginBottom: 12 }} />
+          <SkeletonBlock width="100%" height={12} style={{ marginBottom: 8 }} />
+          <SkeletonBlock width="60%" height={12} />
         </div>
       </div>
 
-      {/* Skeletons mimicking the AI Strategy Panel layout */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Match Overview & Win Prob */}
-        <div className="md:col-span-2 space-y-6">
-          {/* Card 1: Overview */}
-          <div className="bg-cricket-card p-6 rounded-2xl border border-cricket-border space-y-3">
-            <div className="h-6 w-1/4 bg-slate-800 rounded"></div>
-            <div className="space-y-2">
-              <div className="h-4 w-full bg-slate-800/60 rounded"></div>
-              <div className="h-4 w-full bg-slate-800/60 rounded"></div>
-              <div className="h-4 w-5/6 bg-slate-800/60 rounded"></div>
-            </div>
+      {/* 2-column cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 16 }}>
+        {[0, 1].map((i) => (
+          <div key={i} className="cricket-card" style={{ padding: 20 }}>
+            <SkeletonBlock width={100} height={14} style={{ marginBottom: 12 }} />
+            {[0, 1, 2, 3].map((j) => (
+              <SkeletonBlock key={j} width={`${85 - j * 8}%`} height={11} style={{ marginBottom: 8 }} />
+            ))}
           </div>
+        ))}
+      </div>
 
-          {/* Card 2: Batting Plan */}
-          <div className="bg-cricket-card p-6 rounded-2xl border border-cricket-border space-y-4">
-            <div className="h-6 w-1/3 bg-slate-800 rounded"></div>
-            <div className="space-y-3">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="flex gap-3">
-                  <div className="h-4 w-4 bg-slate-800 rounded-full flex-shrink-0"></div>
-                  <div className={`h-4 bg-slate-800/60 rounded ${i % 2 === 0 ? 'w-11/12' : 'w-4/5'}`}></div>
-                </div>
-              ))}
-            </div>
+      {/* 3 bottom cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="cricket-card" style={{ padding: 20 }}>
+            <SkeletonBlock width={90} height={14} style={{ marginBottom: 12 }} />
+            <SkeletonBlock width="100%" height={11} style={{ marginBottom: 8 }} />
+            <SkeletonBlock width="70%" height={11} />
           </div>
-        </div>
-
-        {/* Sidebar Skeletons */}
-        <div className="space-y-6">
-          {/* Win Probability Donut */}
-          <div className="bg-cricket-card p-6 rounded-2xl border border-cricket-border flex flex-col items-center space-y-4">
-            <div className="h-6 w-1/2 bg-slate-800 rounded"></div>
-            <div className="w-36 h-36 rounded-full border-8 border-slate-800 flex items-center justify-center">
-              <div className="h-8 w-12 bg-slate-800/60 rounded"></div>
-            </div>
-            <div className="h-4 w-2/3 bg-slate-800/60 rounded"></div>
-          </div>
-
-          {/* Optimal XI Card */}
-          <div className="bg-cricket-card p-6 rounded-2xl border border-cricket-border space-y-3">
-            <div className="h-6 w-1/2 bg-slate-800 rounded"></div>
-            <div className="space-y-2">
-              {[1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="flex justify-between items-center py-1 border-b border-slate-800/40">
-                  <div className="h-4 w-2/3 bg-slate-800/60 rounded"></div>
-                  <div className="h-4 w-8 bg-slate-800/40 rounded"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
+        ))}
       </div>
     </div>
   );

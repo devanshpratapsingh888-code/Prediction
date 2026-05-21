@@ -1,19 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import VenueCard from '../components/VenueCard';
-import { Compass, BookOpen, Award, ListOrdered, ShieldCheck } from 'lucide-react';
+import { BookOpen, Award, HelpCircle } from 'lucide-react';
+import { useMatch } from '../context/MatchContext';
 
-export default function VenueAnalysis({ venues }) {
+export default function VenueAnalysis({ venues, onNavigate }) {
+  const { match } = useMatch();
   const [selectedVenueId, setSelectedVenueId] = useState('');
 
+  // Default selection on load to the active context venue
   useEffect(() => {
-    if (venues.length > 0 && !selectedVenueId) {
+    if (match.venue?.id) {
+      setSelectedVenueId(match.venue.id);
+    } else if (venues.length > 0) {
       setSelectedVenueId(venues[0].id);
     }
-  }, [venues, selectedVenueId]);
+  }, [venues, match.venue]);
+
+  // Guard Empty State: No match configured
+  if (!match.teamA || !match.teamB) {
+    return (
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent: 'center', minHeight: '60vh', textAlign: 'center',
+      }} className="page-enter">
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🏏</div>
+        <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 24, color: '#38bdf8', marginBottom: 8 }} className="font-display font-bold">
+          No match configured
+        </h2>
+        <p style={{ color: '#64748b', marginBottom: 24 }} className="text-sm font-medium">
+          Go back to Home and select two teams to get started
+        </p>
+        <button 
+          onClick={() => onNavigate('/')}
+          className="px-6 py-2.5 rounded-xl font-bold font-display uppercase tracking-widest bg-cricket-cyan text-cricket-dark hover:bg-[#5cd5ff] transition duration-200 shadow-lg"
+        >
+          Go to Home
+        </button>
+      </div>
+    );
+  }
 
   const activeVenue = venues.find(v => v.id === selectedVenueId);
 
-  // Dynamic static top performers database per venue
+  // Leaderboard data
   const getTopPerformers = (venueId) => {
     const records = {
       wankhede: {
@@ -102,7 +131,7 @@ export default function VenueAnalysis({ venues }) {
     };
   };
 
-  // Generate simulated AI notes for this venue
+  // AI simulated briefs per venue
   const getVenueNotes = (venueId) => {
     const notes = {
       wankhede: [
@@ -153,15 +182,15 @@ export default function VenueAnalysis({ venues }) {
   const venueNotes = getVenueNotes(selectedVenueId);
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
+    <div className="space-y-8 pb-12 page-enter">
       
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold font-display text-white tracking-wide">
+          <h2 className="text-2xl font-bold font-display text-white tracking-wide uppercase">
             Ground conditions dashboard
           </h2>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-400 font-medium">
             Contrast stadium parameters, historic record splits, and AI tactical ground briefings
           </p>
         </div>
@@ -203,7 +232,7 @@ export default function VenueAnalysis({ venues }) {
               </div>
               <ul className="space-y-3">
                 {venueNotes.map((note, idx) => (
-                  <li key={idx} className="flex gap-2.5 text-xs text-slate-305 leading-relaxed">
+                  <li key={idx} className="flex gap-2.5 text-xs text-slate-300 leading-relaxed font-sans">
                     <span className="text-cricket-cyan font-bold select-none">•</span>
                     <span>{note}</span>
                   </li>
@@ -224,11 +253,11 @@ export default function VenueAnalysis({ venues }) {
                 {/* Batting Leaderboard */}
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-display block mb-2">Top Run Scorers</span>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 font-display">
                     {performers.batting.map((p, idx) => (
-                      <div key={idx} className="flex justify-between items-center py-1 border-b border-slate-800/40 text-xs font-display font-semibold text-slate-300">
+                      <div key={idx} className="flex justify-between items-center py-1.5 border-b border-slate-800/40 text-xs font-semibold text-slate-300">
                         <span>{idx+1}. {p.name}</span>
-                        <span className="text-cricket-cyan">{p.runs} runs <span className="text-[10px] text-slate-500 font-mono">(SR {p.sr})</span></span>
+                        <span className="text-cricket-cyan">{p.runs} runs <span className="text-[10px] text-slate-500 font-mono font-sans">(SR {p.sr})</span></span>
                       </div>
                     ))}
                   </div>
@@ -237,11 +266,11 @@ export default function VenueAnalysis({ venues }) {
                 {/* Bowling Leaderboard */}
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-display block mb-2 mt-2">Top Wicket Takers</span>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 font-display">
                     {performers.bowling.map((p, idx) => (
-                      <div key={idx} className="flex justify-between items-center py-1 border-b border-slate-800/40 text-xs font-display font-semibold text-slate-300">
+                      <div key={idx} className="flex justify-between items-center py-1.5 border-b border-slate-800/40 text-xs font-semibold text-slate-300">
                         <span>{idx+1}. {p.name}</span>
-                        <span className="text-cricket-amber">{p.wickets} Wkts <span className="text-[10px] text-slate-500 font-mono">(Econ {p.economy})</span></span>
+                        <span className="text-cricket-amber">{p.wickets} Wkts <span className="text-[10px] text-slate-500 font-mono font-sans">(Econ {p.economy})</span></span>
                       </div>
                     ))}
                   </div>

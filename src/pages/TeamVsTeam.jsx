@@ -6,26 +6,40 @@ import {
 import TeamComparisonCard from '../components/TeamComparisonCard';
 import PhaseChart from '../components/PhaseChart';
 import { getPhaseStats } from '../utils/cricketHelpers';
-import { Compass, ShieldCheck, HelpCircle } from 'lucide-react';
+import { ShieldCheck, HelpCircle } from 'lucide-react';
+import { useMatch } from '../context/MatchContext';
 
-export default function TeamVsTeam({ matchConfig, players }) {
-  const { teamA, teamB } = matchConfig;
+export default function TeamVsTeam({ players, onNavigate }) {
+  const { match } = useMatch();
+  const { teamA, teamB, format } = match;
 
   // Graceful fallback if teams haven't been selected yet
   if (!teamA || !teamB) {
     return (
-      <div className="bg-cricket-card p-8 rounded-2xl border border-cricket-border text-center space-y-4 fade-in">
-        <HelpCircle className="w-12 h-12 mx-auto text-slate-500" />
-        <h3 className="text-xl font-bold font-display text-white">Fixture Not Configured</h3>
-        <p className="text-sm text-slate-400 max-w-sm mx-auto">
-          Please navigate back to the Match Setup portal, choose your competing teams, and initialize the Strategy Engine.
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent: 'center', minHeight: '60vh', textAlign: 'center',
+      }} className="page-enter">
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🏏</div>
+        <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 24, color: '#38bdf8', marginBottom: 8 }} className="font-display font-bold">
+          No match configured
+        </h2>
+        <p style={{ color: '#64748b', marginBottom: 24 }} className="text-sm font-medium">
+          Go back to Home and select two teams to get started
         </p>
+        <button 
+          onClick={() => onNavigate('/')}
+          className="px-6 py-2.5 rounded-xl font-bold font-display uppercase tracking-widest bg-cricket-cyan text-cricket-dark hover:bg-[#5cd5ff] transition duration-200 shadow-lg"
+        >
+          Go to Home
+        </button>
       </div>
     );
   }
 
   // Calculate dynamic Form rating (0-100) based on W/L
   const getFormRating = (form) => {
+    if (!form) return 50;
     const wins = form.filter(f => f === 'W').length;
     return Math.round((wins / form.length) * 100);
   };
@@ -33,13 +47,41 @@ export default function TeamVsTeam({ matchConfig, players }) {
   const formRatingA = getFormRating(teamA.recentForm);
   const formRatingB = getFormRating(teamB.recentForm);
 
-  // Radar Chart comparative stats
+  const winPctA = format === 'T20' ? teamA.t20WinPct : format === 'ODI' ? teamA.odiWinPct : teamA.testWinPct;
+  const winPctB = format === 'T20' ? teamB.t20WinPct : format === 'ODI' ? teamB.odiWinPct : teamB.testWinPct;
+
+  // Radar Chart comparative stats using the 5 requested axes
   const radarData = [
-    { subject: 'Batting', [teamA.name]: teamA.battingStrength, [teamB.name]: teamB.battingStrength },
-    { subject: 'Bowling', [teamA.name]: teamA.bowlingStrength, [teamB.name]: teamB.bowlingStrength },
-    { subject: 'Fielding', [teamA.name]: teamA.fieldingStrength, [teamB.name]: teamB.fieldingStrength },
-    { subject: 'Form Rating', [teamA.name]: formRatingA, [teamB.name]: formRatingB },
-    { subject: 'Experience', [teamA.name]: teamA.t20WinPct > teamB.t20WinPct ? 90 : 80, [teamB.name]: teamB.t20WinPct > teamB.t20WinPct ? 80 : 90 }
+    {
+      subject: 'Batting',
+      [teamA.name]: teamA.battingStrength,
+      [teamB.name]: teamB.battingStrength,
+      fullMark: 100,
+    },
+    {
+      subject: 'Bowling',
+      [teamA.name]: teamA.bowlingStrength,
+      [teamB.name]: teamB.bowlingStrength,
+      fullMark: 100,
+    },
+    {
+      subject: 'Fielding',
+      [teamA.name]: teamA.fieldingStrength,
+      [teamB.name]: teamB.fieldingStrength,
+      fullMark: 100,
+    },
+    {
+      subject: 'Form',
+      [teamA.name]: formRatingA,
+      [teamB.name]: formRatingB,
+      fullMark: 100,
+    },
+    {
+      subject: 'Win %',
+      [teamA.name]: winPctA,
+      [teamB.name]: winPctB,
+      fullMark: 100,
+    },
   ];
 
   // Win % by format data
@@ -99,14 +141,14 @@ export default function TeamVsTeam({ matchConfig, players }) {
   const profileB = getTacticalProfile(teamB.id);
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
+    <div className="space-y-8 pb-12 page-enter">
       
       {/* Page Header */}
       <div>
         <h2 className="text-2xl font-bold font-display text-white tracking-wide">
           SQUAD STATISTICAL COMPARISON
         </h2>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-400 font-medium">
           Comparative overview contrasting performance indices, game phases, and historic win splits
         </p>
       </div>
@@ -121,12 +163,12 @@ export default function TeamVsTeam({ matchConfig, players }) {
             <h3 className="text-lg font-bold font-display text-white uppercase tracking-wider">
               Squad Metrics Radar
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 font-medium">
               Contrasting team characteristics on a multi-axis capability scale
             </p>
           </div>
 
-          <div className="w-full h-72 flex items-center justify-center">
+          <div className="w-full h-72 flex items-center justify-center page-enter">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                 <PolarGrid stroke="#1e293b" />
@@ -145,14 +187,20 @@ export default function TeamVsTeam({ matchConfig, players }) {
                   dataKey={teamA.name} 
                   stroke="#38bdf8" 
                   fill="#38bdf8" 
-                  fillOpacity={0.25} 
+                  fillOpacity={0.15} 
+                  isAnimationActive={true}
+                  animationBegin={300}
+                  animationDuration={1000}
                 />
                 <Radar 
                   name={teamB.name} 
                   dataKey={teamB.name} 
                   stroke="#fbbf24" 
                   fill="#fbbf24" 
-                  fillOpacity={0.25} 
+                  fillOpacity={0.15} 
+                  isAnimationActive={true}
+                  animationBegin={300}
+                  animationDuration={1000}
                 />
                 <Tooltip 
                   contentStyle={{
@@ -194,12 +242,12 @@ export default function TeamVsTeam({ matchConfig, players }) {
             <h3 className="text-lg font-bold font-display text-white uppercase tracking-wider">
               Win Percentage by Match Format
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 font-medium">
               Historical match success rates across Test matches, ODIs, and international T20s
             </p>
           </div>
 
-          <div className="w-full h-80">
+          <div className="w-full h-80 page-enter">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 layout="vertical"
@@ -243,13 +291,19 @@ export default function TeamVsTeam({ matchConfig, players }) {
                   dataKey={teamA.name} 
                   fill="#38bdf8" 
                   radius={[0, 4, 4, 0]} 
-                  animationDuration={1200}
+                  isAnimationActive={true}
+                  animationBegin={200}
+                  animationDuration={800}
+                  animationEasing="ease-out"
                 />
                 <Bar 
                   dataKey={teamB.name} 
                   fill="#fbbf24" 
                   radius={[0, 4, 4, 0]} 
-                  animationDuration={1200}
+                  isAnimationActive={true}
+                  animationBegin={200}
+                  animationDuration={800}
+                  animationEasing="ease-out"
                 />
               </BarChart>
             </ResponsiveContainer>

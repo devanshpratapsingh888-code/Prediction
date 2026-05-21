@@ -1,58 +1,119 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import AIStrategyPanel from '../components/AIStrategyPanel';
-import { HelpCircle, RefreshCw, AlertCircle, Info } from 'lucide-react';
+import { useMatch } from '../context/MatchContext';
+import { HelpCircle, RefreshCw, AlertCircle, Copy, Check, FileText } from 'lucide-react';
 
-export default function AIStrategy({ matchConfig, players, aiState }) {
-  const { teamA, teamB, format, venue, pitchType, tossWinner, tossDecision } = matchConfig;
-  const { loading, error, data, generateStrategy } = aiState;
+export default function AIStrategy({ teams, venues, players, aiState, onNavigate }) {
+  const { match } = useMatch();
+  const { teamA, teamB, format, venue, pitchType, tossWinner, tossDecision } = match;
+  const { loading, error, data, generate } = aiState;
 
-  // Trigger generation automatically when the page loads, but only if we have a valid fixture configured
+  const [copied, setCopied] = useState(false);
+
+  // Trigger strategy compilation automatically on load if we have a valid fixture and no data yet
   useEffect(() => {
     if (teamA && teamB && venue && !data && !loading) {
-      generateStrategy(teamA, teamB, format, venue, pitchType, tossWinner, tossDecision, players);
+      generate(match, teams, venues);
     }
-  }, [teamA, teamB, format, venue, pitchType, tossWinner, tossDecision, players, data, loading, generateStrategy]);
+  }, [teamA, teamB, format, venue, pitchType, tossWinner, tossDecision, teams, venues, data, loading, generate, match]);
 
-  // Handle manual regenerate button clicks
   const handleRegenerate = () => {
-    generateStrategy(teamA, teamB, format, venue, pitchType, tossWinner, tossDecision, players);
+    generate(match, teams, venues);
   };
 
-  // Guard: Fixture not yet set up
-  if (!teamA || !teamB) {
+  const handleCopy = () => {
+    if (!data) return;
+    const text = JSON.stringify(data, null, 2);
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  // Guard Empty State: No match configured
+  if (!match.teamA || !match.teamB) {
     return (
-      <div className="bg-cricket-card p-8 rounded-2xl border border-cricket-border text-center space-y-4 fade-in">
-        <HelpCircle className="w-12 h-12 mx-auto text-slate-500" />
-        <h3 className="text-xl font-bold font-display text-white">Fixture Not Configured</h3>
-        <p className="text-sm text-slate-400 max-w-sm mx-auto">
-          Please navigate back to the Match Setup portal, select your fixture parameters, and launch the Strategy Engine to calculate tactical reports.
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent: 'center', minHeight: '60vh', textAlign: 'center',
+      }} className="page-enter">
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🏏</div>
+        <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 24, color: '#38bdf8', marginBottom: 8 }} className="font-display font-bold">
+          No match configured
+        </h2>
+        <p style={{ color: '#64748b', marginBottom: 24 }} className="text-sm font-medium">
+          Go back to Home and select two teams to get started
         </p>
+        <button 
+          onClick={() => onNavigate('/')}
+          className="px-6 py-2.5 rounded-xl font-bold font-display uppercase tracking-widest bg-cricket-cyan text-cricket-dark hover:bg-[#5cd5ff] transition duration-200 shadow-lg"
+        >
+          Go to Home
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
+    <div className="space-y-8 pb-12 page-enter">
       
       {/* Page Header */}
-      <div className="no-print">
-        <h2 className="text-2xl font-bold font-display text-white tracking-wide">
-          AI TACTICAL DECISION ENGINE
-        </h2>
-        <p className="text-xs text-slate-400">
-          Machine-generated game plan and tactical rotations built for {teamA.name} vs {teamB.name}
-        </p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-cricket-border pb-4 no-print">
+        <div>
+          <h2 className="text-2xl font-bold font-display text-white tracking-wide uppercase">
+            AI TACTICAL DECISION ENGINE
+          </h2>
+          <p className="text-xs text-slate-400 font-medium">
+            Machine-generated tactical strategy and players blueprints built for {teamA?.name} vs {teamB?.name}
+          </p>
+        </div>
+
+        {/* Generative & Utility Controls */}
+        {data && !loading && (
+          <div className="flex flex-wrap gap-2.5">
+            <button
+              onClick={handleCopy}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold font-display uppercase tracking-widest transition duration-200 border border-slate-700 ${
+                copied 
+                  ? 'bg-cricket-green/20 text-cricket-green border-cricket-green/30' 
+                  : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-750'
+              }`}
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? 'Copied!' : '📋 Copy Strategy'}
+            </button>
+
+            <button
+              onClick={handleRegenerate}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold font-display uppercase tracking-widest bg-cricket-cyan text-cricket-dark hover:bg-[#5cd5ff] transition duration-200 shadow-md"
+            >
+              <RefreshCw className="w-4 h-4 animate-spin-slow" />
+              🔄 Regenerate Strategy
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Local Simulation Fallback notification banner */}
+      {/* API Error Notification Card */}
       {error && !loading && (
-        <div className="flex items-center gap-3 p-4 rounded-xl bg-cricket-amber/10 border border-cricket-amber/30 text-cricket-amber text-xs no-print">
-          <Info className="w-5 h-5 flex-shrink-0 animate-pulse" />
-          <div>
-            <span className="font-bold uppercase tracking-wider block">Local Engine Fallback</span>
-            <span className="font-semibold text-slate-300">The AI model compiled this report using local statistical simulations. Configure your `GEMINI_API_KEY` for live generative insights.</span>
-          </div>
+        <div style={{
+          background: 'rgba(248,113,113,0.1)',
+          border: '1px solid rgba(248,113,113,0.3)',
+          borderRadius: 12, padding: 20, textAlign: 'center', marginBottom: 24,
+        }} className="no-print">
+          <p style={{ color: '#f87171', marginBottom: 12 }} className="text-sm font-semibold">⚠ {error}</p>
+          <button
+            onClick={handleRegenerate}
+            style={{
+              background: '#38bdf8', color: '#0a0f1e',
+              border: 'none', borderRadius: 8, padding: '8px 20px',
+              cursor: 'pointer', fontWeight: 600,
+            }}
+            className="font-display uppercase tracking-widest text-xs shadow-md"
+          >
+            Retry
+          </button>
         </div>
       )}
 
@@ -75,7 +136,7 @@ export default function AIStrategy({ matchConfig, players, aiState }) {
           </p>
           <button
             onClick={handleRegenerate}
-            className="flex items-center gap-2 px-6 py-3 mx-auto text-sm font-bold font-display uppercase tracking-widest rounded-xl bg-cricket-cyan text-cricket-dark hover:bg-opacity-95 font-bold transition shadow-lg"
+            className="flex items-center gap-2 px-6 py-3 mx-auto text-sm font-bold font-display uppercase tracking-widest rounded-xl bg-cricket-cyan text-cricket-dark hover:bg-opacity-95 transition shadow-lg"
           >
             <RefreshCw className="w-4 h-4" />
             Retry Strategy Compilation

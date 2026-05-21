@@ -6,31 +6,30 @@ import AIStrategy from './pages/AIStrategy';
 import PlayerMatchups from './pages/PlayerMatchups';
 import VenueAnalysis from './pages/VenueAnalysis';
 import { useGeminiStrategy } from './hooks/useGeminiStrategy';
-import { ShieldAlert, Compass } from 'lucide-react';
+import { useMatch } from './context/MatchContext';
+import { ShieldAlert } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState('/');
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
   const [venues, setVenues] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [dataLoadError, setDataLoadError] = useState('');
+  
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  // Central Match Fixture Configuration State
-  const [matchConfig, setMatchConfig] = useState({
-    teamA: null,
-    teamB: null,
-    format: 'T20',
-    venue: null,
-    pitchType: 'Flat',
-    tossWinner: '',
-    tossDecision: 'bat'
-  });
-
-  // Instantiate Google Gemini strategy compiler hook
+  const { match, updateMatch } = useMatch();
   const aiState = useGeminiStrategy();
 
-  // Fetch local mock databases on mount
+  // Watch viewport resizing for mobile navigation safe margins
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Fetch local mockup data on load
   useEffect(() => {
     const loadDatabase = async () => {
       try {
@@ -53,14 +52,13 @@ export default function App() {
         setPlayers(dataPlayers);
         setVenues(dataVenues);
 
-        // Prepopulate default fixture setups once datasets are ready
-        if (dataTeams.length >= 2 && dataVenues.length > 0) {
-          setMatchConfig(prev => ({
-            ...prev,
+        // Prepopulate default fixture setups if context isn't set yet
+        if (dataTeams.length >= 2 && dataVenues.length > 0 && !match.teamA) {
+          updateMatch({
             teamA: dataTeams[0],
             teamB: dataTeams[1],
             venue: dataVenues[0]
-          }));
+          });
         }
       } catch (err) {
         console.error("Database initialization failed:", err);
@@ -73,74 +71,96 @@ export default function App() {
     loadDatabase();
   }, []);
 
-  // Handle Generate CTA clicks from the Match Form
+  // Handle generating tactics triggers
   const handleGenerateStrategy = () => {
-    setActiveTab('strategy');
+    setActiveTab('/strategy');
   };
 
-  // Dynamic Routing Switch based on activeTab
+  const handleNavigate = (path) => {
+    setActiveTab(path);
+  };
+
+  // Switch pages based on route path
   const renderActivePage = () => {
     switch (activeTab) {
-      case 'home':
+      case '/':
         return (
           <Home
             teams={teams}
             venues={venues}
-            matchConfig={matchConfig}
-            setMatchConfig={setMatchConfig}
-            onGenerate={handleGenerateStrategy}
+            onNavigate={handleNavigate}
           />
         );
-      case 'team-analysis':
-        return <TeamVsTeam matchConfig={matchConfig} players={players} />;
-      case 'strategy':
+      case '/team-analysis':
+        return <TeamVsTeam players={players} onNavigate={handleNavigate} />;
+      case '/strategy':
         return (
           <AIStrategy
-            matchConfig={matchConfig}
+            teams={teams}
+            venues={venues}
             players={players}
             aiState={aiState}
+            onNavigate={handleNavigate}
           />
         );
-      case 'matchups':
-        return <PlayerMatchups matchConfig={matchConfig} players={players} aiState={aiState} />;
-      case 'venue':
-        return <VenueAnalysis venues={venues} />;
+      case '/matchups':
+        return (
+          <PlayerMatchups 
+            players={players} 
+            aiState={aiState} 
+            onNavigate={handleNavigate} 
+          />
+        );
+      case '/venue':
+        return <VenueAnalysis venues={venues} onNavigate={handleNavigate} />;
       default:
-        return <Home teams={teams} venues={venues} matchConfig={matchConfig} setMatchConfig={setMatchConfig} onGenerate={handleGenerateStrategy} />;
+        return (
+          <Home
+            teams={teams}
+            venues={venues}
+            onNavigate={handleNavigate}
+          />
+        );
     }
   };
 
-  // Render main layout
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-cricket-dark text-slate-100 font-body">
-      
-      {/* Collapsible Left navigation */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="min-h-screen bg-[#0a0f1e] text-slate-100 font-body flex">
+      {/* Sidebar navigation context */}
+      <Sidebar currentPath={activeTab} onNavigate={handleNavigate} />
 
-      {/* Main content body */}
-      <main className="flex-1 p-6 md:p-8 overflow-y-auto pb-24 md:pb-8 max-w-7xl mx-auto w-full">
-        
-        {/* Global database errors */}
+      {/* Main viewport block */}
+      <main
+        style={{
+          marginLeft: isMobile ? 0 : 220,
+          paddingBottom: isMobile ? 80 : 0,
+          minHeight: '100vh',
+          flex: 1,
+        }}
+        className="p-6 md:p-8 flex flex-col w-full overflow-x-hidden"
+      >
+        {/* Load failures alerts */}
         {dataLoadError && (
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-cricket-red/10 border border-cricket-red/30 text-cricket-red text-sm mb-6 max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 p-4 rounded-2xl bg-cricket-red/10 border border-cricket-red/30 text-cricket-red text-sm mb-6 max-w-4xl mx-auto w-full no-print">
             <ShieldAlert className="w-6 h-6 flex-shrink-0 animate-pulse" />
             <span className="font-semibold">{dataLoadError}</span>
           </div>
         )}
 
-        {/* Loading Spinner during initial dataset fetching */}
+        {/* Loading Spinner */}
         {isLoadingData ? (
-          <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+          <div className="flex flex-col items-center justify-center flex-1 space-y-4 my-auto">
             <div className="w-12 h-12 rounded-full border-4 border-t-cricket-cyan border-slate-800 animate-spin"></div>
             <p className="font-display tracking-widest text-sm text-slate-400 font-bold uppercase animate-pulse">
               Initializing Strategy Databases...
             </p>
           </div>
         ) : (
-          renderActivePage()
+          <div className="flex-1 w-full max-w-6xl mx-auto">
+            {renderActivePage()}
+          </div>
         )}
       </main>
-
     </div>
   );
 }
