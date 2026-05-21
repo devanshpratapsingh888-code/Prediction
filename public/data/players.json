@@ -1,0 +1,429 @@
+[
+  {
+    "id": "kohli", "teamId": "ind", "name": "Virat Kohli",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 57.4, "strikeRate": 139.1, "t20Runs": 4188,
+    "weaknesses": ["short ball outside off", "early swing", "left-arm orthodox spin"],
+    "strengths": ["chasing targets", "spin on slow pitches", "cover drive"],
+    "formRating": 88
+  },
+  {
+    "id": "rohit", "teamId": "ind", "name": "Rohit Sharma",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 32.1, "strikeRate": 140.8, "t20Runs": 3974,
+    "weaknesses": ["left-arm fast in-swing", "moving new ball", "leg-spin"],
+    "strengths": ["pull shot", "powerplay hitting", "playing high pace"],
+    "formRating": 86
+  },
+  {
+    "id": "bumrah", "teamId": "ind", "name": "Jasprit Bumrah",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 19.8, "economy": 6.24, "wickets": 145,
+    "deathOverEconomy": 7.1, "powerplayEconomy": 5.8,
+    "strengths": ["yorkers", "death overs", "reverse swing", "slower balls"],
+    "weaknesses": ["extreme heat fatigue"],
+    "formRating": 94
+  },
+  {
+    "id": "pandya", "teamId": "ind", "name": "Hardik Pandya",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm fast-medium",
+    "battingAvg": 33.5, "strikeRate": 142.3, "t20Runs": 2400,
+    "bowlingAvg": 26.4, "economy": 8.12, "wickets": 86,
+    "deathOverEconomy": 9.2, "powerplayEconomy": 7.8,
+    "strengths": ["finishing games", "hard-length bowling", "spin hitting"],
+    "weaknesses": ["back injury risk", "high pace bouncers"],
+    "formRating": 84
+  },
+  {
+    "id": "jadeja", "teamId": "ind", "name": "Ravindra Jadeja",
+    "role": "All-Rounder", "battingHand": "Left", "bowlingType": "Left-arm orthodox",
+    "battingAvg": 24.8, "strikeRate": 128.5, "t20Runs": 1500,
+    "bowlingAvg": 28.2, "economy": 7.15, "wickets": 120,
+    "deathOverEconomy": 8.8, "powerplayEconomy": 6.8,
+    "strengths": ["accurate line and length", "superb fielding", "finishing vs pace"],
+    "weaknesses": ["big spinning tracks (batting)", "hard-hitting right handers"],
+    "formRating": 85
+  },
+  {
+    "id": "pant", "teamId": "ind", "name": "Rishabh Pant",
+    "role": "Wicketkeeper-Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 34.2, "strikeRate": 145.5, "t20Runs": 1800,
+    "weaknesses": ["wide outside-off slice", "off-spin setup"],
+    "strengths": ["one-handed sixes", "reverse sweeps", "spin destruction"],
+    "formRating": 89
+  },
+
+  {
+    "id": "smith", "teamId": "aus", "name": "Steve Smith",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 54.2, "strikeRate": 125.4, "t20Runs": 1079,
+    "weaknesses": ["left-arm fast short-ball", "early leg-before-wicket"],
+    "strengths": ["spin manipulation", "strike rotation", "anchor innings"],
+    "formRating": 82
+  },
+  {
+    "id": "starc", "teamId": "aus", "name": "Mitchell Starc",
+    "role": "Bowler", "battingHand": "Left", "bowlingType": "Left-arm fast",
+    "bowlingAvg": 22.1, "economy": 7.1, "wickets": 98,
+    "deathOverEconomy": 8.2, "powerplayEconomy": 6.1,
+    "strengths": ["swing with new ball", "left-arm angle", "yorkers"],
+    "weaknesses": ["expensive when swing stops"],
+    "formRating": 85
+  },
+  {
+    "id": "maxwell", "teamId": "aus", "name": "Glenn Maxwell",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm off spin",
+    "battingAvg": 29.5, "strikeRate": 154.2, "t20Runs": 2400,
+    "bowlingAvg": 27.8, "economy": 7.42, "wickets": 40,
+    "deathOverEconomy": 9.5, "powerplayEconomy": 6.9,
+    "strengths": ["reverse sweeps", "extremely fast scoring", "useful off-spin matchups"],
+    "weaknesses": ["high risk shots early", "fast short pitch bowling"],
+    "formRating": 87
+  },
+  {
+    "id": "cummins", "teamId": "aus", "name": "Pat Cummins",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 21.5, "economy": 7.3, "wickets": 65,
+    "deathOverEconomy": 8.5, "powerplayEconomy": 6.8,
+    "strengths": ["leadership", "hitting hard deck lengths", "tail-end batting"],
+    "weaknesses": ["flat subcontinental wickets"],
+    "formRating": 91
+  },
+  {
+    "id": "head", "teamId": "aus", "name": "Travis Head",
+    "role": "Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 35.8, "strikeRate": 158.4, "t20Runs": 1200,
+    "weaknesses": ["bodyline bouncers", "left-arm orthodox spinner"],
+    "strengths": ["powerplay aggression", "cut shot", "opening batsman explosion"],
+    "formRating": 92
+  },
+  {
+    "id": "zampa", "teamId": "aus", "name": "Adam Zampa",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm leg spin",
+    "bowlingAvg": 22.4, "economy": 6.95, "wickets": 92,
+    "deathOverEconomy": 7.9, "powerplayEconomy": 7.2,
+    "strengths": ["middle overs squeeze", "slider variation", "wrong'un"],
+    "weaknesses": ["small boundaries and wet ball"],
+    "formRating": 89
+  },
+
+  {
+    "id": "buttler", "teamId": "eng", "name": "Jos Buttler",
+    "role": "Wicketkeeper-Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 36.5, "strikeRate": 144.6, "t20Runs": 3000,
+    "weaknesses": ["moving ball early on", "left-arm orthodox spinner"],
+    "strengths": ["360-degree hitting", "ramp shot", "outstanding powerplay conversion"],
+    "formRating": 88
+  },
+  {
+    "id": "root", "teamId": "eng", "name": "Joe Root",
+    "role": "Batter", "battingHand": "Right", "bowlingType": "Right-arm off spin",
+    "battingAvg": 50.1, "strikeRate": 121.2, "t20Runs": 900,
+    "weaknesses": ["left-arm fast angle out-swing", "early lapse in focus"],
+    "strengths": ["sweep shot", "spin dominance", "high game-IQ rotation"],
+    "formRating": 83
+  },
+  {
+    "id": "archer", "teamId": "eng", "name": "Jofra Archer",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 18.9, "economy": 7.12, "wickets": 52,
+    "deathOverEconomy": 7.8, "powerplayEconomy": 6.2,
+    "strengths": ["raw pace", "deadly bouncers", "toe-crushing yorkers"],
+    "weaknesses": ["elbow injury recurrence"],
+    "formRating": 87
+  },
+  {
+    "id": "rashid", "teamId": "eng", "name": "Adil Rashid",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm leg spin",
+    "bowlingAvg": 23.1, "economy": 7.08, "wickets": 105,
+    "deathOverEconomy": 8.3, "powerplayEconomy": 7.5,
+    "strengths": ["hidden googly", "excellent control", "spinning both ways"],
+    "weaknesses": ["flat decks with no turn"],
+    "formRating": 86
+  },
+  {
+    "id": "stokes", "teamId": "eng", "name": "Ben Stokes",
+    "role": "All-Rounder", "battingHand": "Left", "bowlingType": "Right-arm fast-medium",
+    "battingAvg": 35.8, "strikeRate": 134.5, "t20Runs": 2800,
+    "bowlingAvg": 31.4, "economy": 8.4, "wickets": 38,
+    "deathOverEconomy": 9.4, "powerplayEconomy": 8.0,
+    "strengths": ["clutch performance", "aggressive mindset", "pressure absorption"],
+    "weaknesses": ["injuries", "spin early in the innings"],
+    "formRating": 84
+  },
+  {
+    "id": "brook", "teamId": "eng", "name": "Harry Brook",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 38.2, "strikeRate": 150.3, "t20Runs": 1100,
+    "weaknesses": ["slow left-arm spinner", "outswing on green pitches"],
+    "strengths": ["hitting spin over cover", "back-foot pull", "rapid accelerator"],
+    "formRating": 90
+  },
+
+  {
+    "id": "babar", "teamId": "pak", "name": "Babar Azam",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 41.2, "strikeRate": 129.4, "t20Runs": 3800,
+    "weaknesses": ["left-arm orthodox spin", "nipping inswinging ball"],
+    "strengths": ["cover drive", "classical anchor", "high-percentage scoring"],
+    "formRating": 89
+  },
+  {
+    "id": "shaheen", "teamId": "pak", "name": "Shaheen Afridi",
+    "role": "Bowler", "battingHand": "Left", "bowlingType": "Left-arm fast",
+    "bowlingAvg": 20.2, "economy": 7.22, "wickets": 96,
+    "deathOverEconomy": 8.4, "powerplayEconomy": 6.0,
+    "strengths": ["lethal first-over swing", "left-arm angle", "late yorkers"],
+    "weaknesses": ["struggles on second spell if no early swing"],
+    "formRating": 91
+  },
+  {
+    "id": "rizwan", "teamId": "pak", "name": "Mohammad Rizwan",
+    "role": "Wicketkeeper-Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 48.8, "strikeRate": 126.8, "t20Runs": 2900,
+    "weaknesses": ["off-spin setup", "limited off-side range"],
+    "strengths": ["sweep shot", "running between wickets", "backfoot flick"],
+    "formRating": 87
+  },
+  {
+    "id": "naseem", "teamId": "pak", "name": "Naseem Shah",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 21.8, "economy": 7.05, "wickets": 48,
+    "deathOverEconomy": 8.0, "powerplayEconomy": 6.3,
+    "strengths": ["outswing at 145+ kph", "seam movement", "calm under pressure"],
+    "weaknesses": ["shoulder fatigue"],
+    "formRating": 88
+  },
+  {
+    "id": "shadab", "teamId": "pak", "name": "Shadab Khan",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm leg spin",
+    "battingAvg": 18.5, "strikeRate": 136.2, "t20Runs": 1200,
+    "bowlingAvg": 26.2, "economy": 7.35, "wickets": 84,
+    "deathOverEconomy": 8.9, "powerplayEconomy": 7.8,
+    "strengths": ["exceptional fielding", "hard hitting spin bowler", "deceptive googly"],
+    "weaknesses": ["losing length control under pressure"],
+    "formRating": 80
+  },
+  {
+    "id": "rauf", "teamId": "pak", "name": "Haris Rauf",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 22.8, "economy": 8.02, "wickets": 90,
+    "deathOverEconomy": 8.1, "powerplayEconomy": 8.9,
+    "strengths": ["150kph thunderbolts", "deadly slower bouncers", "excellent death bowling"],
+    "weaknesses": ["leaks runs in powerplays"],
+    "formRating": 85
+  },
+
+  {
+    "id": "dekock", "teamId": "sa", "name": "Quinton de Kock",
+    "role": "Wicketkeeper-Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 32.5, "strikeRate": 138.2, "t20Runs": 2400,
+    "weaknesses": ["off-spin in powerplay", "moving right-arm over ball"],
+    "strengths": ["pickup pull shot", "point boundary cut", "quick glovework"],
+    "formRating": 83
+  },
+  {
+    "id": "rabada", "teamId": "sa", "name": "Kagiso Rabada",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 22.3, "economy": 7.4, "wickets": 105,
+    "deathOverEconomy": 8.3, "powerplayEconomy": 6.8,
+    "strengths": ["extra bounce", "raw pace", "outstanding yorkers"],
+    "weaknesses": ["overstep no-balls under pressure"],
+    "formRating": 88
+  },
+  {
+    "id": "klaasen", "teamId": "sa", "name": "Heinrich Klaasen",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 38.6, "strikeRate": 162.8, "t20Runs": 1800,
+    "weaknesses": ["early swing from pacers", "wide sliding yorkers"],
+    "strengths": ["spin demolition", "insane power-hitting", "backfoot sixes"],
+    "formRating": 93
+  },
+  {
+    "id": "miller", "teamId": "sa", "name": "David Miller",
+    "role": "Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 34.9, "strikeRate": 141.5, "t20Runs": 2300,
+    "weaknesses": ["high quality wrist spin", "short-pitch speed"],
+    "strengths": ["finishing under extreme pressure", "hitting over cow corner", "vast experience"],
+    "formRating": 87
+  },
+  {
+    "id": "nortje", "teamId": "sa", "name": "Anrich Nortje",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 20.8, "economy": 7.62, "wickets": 70,
+    "deathOverEconomy": 8.5, "powerplayEconomy": 7.0,
+    "strengths": ["extreme speed (155 kph)", "hostile bouncers", "tight death lines"],
+    "weaknesses": ["injury prone", "expensive on flat small fields"],
+    "formRating": 84
+  },
+  {
+    "id": "maharaj", "teamId": "sa", "name": "Keshav Maharaj",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Left-arm orthodox",
+    "bowlingAvg": 25.1, "economy": 6.78, "wickets": 58,
+    "deathOverEconomy": 8.0, "powerplayEconomy": 6.5,
+    "strengths": ["superb economy", "powerplay bowling", "drifting onto leg stump"],
+    "weaknesses": ["limited turning power on flat decks"],
+    "formRating": 89
+  },
+
+  {
+    "id": "williamson", "teamId": "nz", "name": "Kane Williamson",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 54.8, "strikeRate": 122.5, "t20Runs": 2500,
+    "weaknesses": ["leg spin googlies", "lack of high gear early"],
+    "strengths": ["outstanding timing", "guiding to third-man", "superb captaincy"],
+    "formRating": 85
+  },
+  {
+    "id": "boult", "teamId": "nz", "name": "Trent Boult",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Left-arm fast",
+    "bowlingAvg": 21.2, "economy": 7.02, "wickets": 85,
+    "deathOverEconomy": 8.4, "powerplayEconomy": 5.9,
+    "strengths": ["left-arm swing", "early powerplay wickets", "brilliant fielding"],
+    "weaknesses": ["extreme heat conditions"],
+    "formRating": 87
+  },
+  {
+    "id": "santner", "teamId": "nz", "name": "Mitchell Santner",
+    "role": "All-Rounder", "battingHand": "Left", "bowlingType": "Left-arm orthodox",
+    "battingAvg": 16.5, "strikeRate": 125.8, "t20Runs": 600,
+    "bowlingAvg": 24.5, "economy": 6.85, "wickets": 72,
+    "deathOverEconomy": 7.9, "powerplayEconomy": 6.4,
+    "strengths": ["clever change of pace", "super-tight economy", "underappreciated arm ball"],
+    "weaknesses": ["limited power hitting lower order"],
+    "formRating": 86
+  },
+  {
+    "id": "conway", "teamId": "nz", "name": "Devon Conway",
+    "role": "Wicketkeeper-Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 39.5, "strikeRate": 132.4, "t20Runs": 1300,
+    "weaknesses": ["early off-spin setup", "right-arm speed bouncers"],
+    "strengths": ["high consistency", "drives and sweeps", "handling spin masterclass"],
+    "formRating": 84
+  },
+  {
+    "id": "phillips", "teamId": "nz", "name": "Glenn Phillips",
+    "role": "Batter", "battingHand": "Right", "bowlingType": "Right-arm off spin",
+    "battingAvg": 32.1, "strikeRate": 142.8, "t20Runs": 1400,
+    "weaknesses": ["swinging ball outside off"],
+    "strengths": ["extraordinary athletic fielding", "explosive hitting", "golden-arm wickets"],
+    "formRating": 88
+  },
+  {
+    "id": "southee", "teamId": "nz", "name": "Tim Southee",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast-medium",
+    "bowlingAvg": 23.5, "economy": 7.85, "wickets": 152,
+    "deathOverEconomy": 8.8, "powerplayEconomy": 6.9,
+    "strengths": ["outswing", "lethal cutter variations", "vast experience"],
+    "weaknesses": ["can be hit when cutter is read"],
+    "formRating": 83
+  },
+
+  {
+    "id": "pooran", "teamId": "wi", "name": "Nicholas Pooran",
+    "role": "Batter", "battingHand": "Left", "bowlingType": null,
+    "battingAvg": 35.2, "strikeRate": 158.9, "t20Runs": 2000,
+    "weaknesses": ["high pace short balls", "off-spinner powerplay squeeze"],
+    "strengths": ["hitting sixes at will", "spin massacre", "spectacular aerial range"],
+    "formRating": 92
+  },
+  {
+    "id": "russell", "teamId": "wi", "name": "Andre Russell",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "battingAvg": 26.5, "strikeRate": 168.2, "t20Runs": 3000,
+    "bowlingAvg": 25.8, "economy": 8.95, "wickets": 110,
+    "deathOverEconomy": 9.8, "powerplayEconomy": 8.5,
+    "strengths": ["unmatched muscle power", "clutch death bowling", "brutal scoring rates"],
+    "weaknesses": ["injury prone knees", "extreme leg-spin query"],
+    "formRating": 89
+  },
+  {
+    "id": "joseph", "teamId": "wi", "name": "Alzarri Joseph",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 24.1, "economy": 8.15, "wickets": 42,
+    "deathOverEconomy": 8.9, "powerplayEconomy": 7.4,
+    "strengths": ["high release point bounce", "raw speed (145+)", "aggressive attitude"],
+    "weaknesses": ["loses control when attacked early"],
+    "formRating": 84
+  },
+  {
+    "id": "hope", "teamId": "wi", "name": "Shai Hope",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 50.4, "strikeRate": 122.4, "t20Runs": 600,
+    "weaknesses": ["quick short deliveries", "left arm fast angle out"],
+    "strengths": ["class anchor", "reliable technique", "spin rotation"],
+    "formRating": 86
+  },
+  {
+    "id": "holder", "teamId": "wi", "name": "Jason Holder",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm fast-medium",
+    "battingAvg": 20.5, "strikeRate": 128.9, "t20Runs": 1100,
+    "bowlingAvg": 27.5, "economy": 7.95, "wickets": 64,
+    "deathOverEconomy": 9.1, "powerplayEconomy": 7.2,
+    "strengths": ["steep bounce", "solid technique lower-order", "powerplay economy"],
+    "weaknesses": ["leaks runs in death overs", "slow reflexes"],
+    "formRating": 81
+  },
+  {
+    "id": "hosein", "teamId": "wi", "name": "Akeal Hosein",
+    "role": "Bowler", "battingHand": "Left", "bowlingType": "Left-arm orthodox",
+    "bowlingAvg": 26.2, "economy": 6.85, "wickets": 48,
+    "deathOverEconomy": 8.2, "powerplayEconomy": 6.1,
+    "strengths": ["perfect powerplay squeeze", "arm ball", "outstanding boundary catches"],
+    "weaknesses": ["limited turning threat on flat pitches"],
+    "formRating": 87
+  },
+
+  {
+    "id": "hasaranga", "teamId": "sl", "name": "Wanindu Hasaranga",
+    "role": "All-Rounder", "battingHand": "Right", "bowlingType": "Right-arm leg spin",
+    "battingAvg": 20.8, "strikeRate": 140.2, "t20Runs": 1000,
+    "bowlingAvg": 18.2, "economy": 6.64, "wickets": 115,
+    "deathOverEconomy": 7.4, "powerplayEconomy": 7.0,
+    "strengths": ["world-class googly", "incredible middle overs threat", "fast batting acceleration"],
+    "weaknesses": ["bodyline bouncers", "expensive if googly is read"],
+    "formRating": 90
+  },
+  {
+    "id": "nissanka", "teamId": "sl", "name": "Pathum Nissanka",
+    "role": "Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 33.4, "strikeRate": 130.5, "t20Runs": 1200,
+    "weaknesses": ["moving ball in dark lighting", "bodyline bouncers"],
+    "strengths": ["on-side flick", "high contact rate", "rapid powerplay pacing"],
+    "formRating": 88
+  },
+  {
+    "id": "mendis", "teamId": "sl", "name": "Kusal Mendis",
+    "role": "Wicketkeeper-Batter", "battingHand": "Right", "bowlingType": null,
+    "battingAvg": 28.5, "strikeRate": 133.4, "t20Runs": 1600,
+    "weaknesses": ["outswing outside off", "leg spin googly"],
+    "strengths": ["pulled sixes", "explosive cover drive", "athletic keeping"],
+    "formRating": 85
+  },
+  {
+    "id": "theekshana", "teamId": "sl", "name": "Maheesh Theekshana",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm off spin",
+    "bowlingAvg": 24.2, "economy": 6.65, "wickets": 54,
+    "deathOverEconomy": 7.9, "powerplayEconomy": 6.0,
+    "strengths": ["carrom ball", "powerplay block", "difficult action readability"],
+    "weaknesses": ["wet outfield holding"],
+    "formRating": 87
+  },
+  {
+    "id": "pathirana", "teamId": "sl", "name": "Matheesha Pathirana",
+    "role": "Bowler", "battingHand": "Right", "bowlingType": "Right-arm fast",
+    "bowlingAvg": 19.5, "economy": 7.55, "wickets": 40,
+    "deathOverEconomy": 6.8, "powerplayEconomy": 8.9,
+    "strengths": ["slingshot action", "150kph tailing yorkers", "ultimate death overs value"],
+    "weaknesses": ["leaks extras in first overs", "erratic control early"],
+    "formRating": 91
+  },
+  {
+    "id": "asalanka", "teamId": "sl", "name": "Charith Asalanka",
+    "role": "Batter", "battingHand": "Left", "bowlingType": "Right-arm off spin",
+    "battingAvg": 31.8, "strikeRate": 131.2, "t20Runs": 950,
+    "weaknesses": ["high express speed", "left-arm fast angle out-swing"],
+    "strengths": ["hitting spin over deep midwicket", "clutch finishing", "captaincy focus"],
+    "formRating": 86
+  }
+]

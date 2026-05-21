@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ind", "name": "India", "shortName": "IND", "flag": "🇮🇳",
+    "recentForm": ["W","W","L","W","W"],
+    "battingStrength": 92, "bowlingStrength": 85, "fieldingStrength": 88,
+    "t20WinPct": 68, "odiWinPct": 72, "testWinPct": 61
+  },
+  {
+    "id": "aus", "name": "Australia", "shortName": "AUS", "flag": "🇦🇺",
+    "recentForm": ["W","L","W","W","L"],
+    "battingStrength": 88, "bowlingStrength": 90, "fieldingStrength": 92,
+    "t20WinPct": 64, "odiWinPct": 70, "testWinPct": 65
+  },
+  {
+    "id": "eng", "name": "England", "shortName": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "recentForm": ["L","W","W","L","W"],
+    "battingStrength": 87, "bowlingStrength": 84, "fieldingStrength": 85,
+    "t20WinPct": 61, "odiWinPct": 67, "testWinPct": 58
+  },
+  {
+    "id": "pak", "name": "Pakistan", "shortName": "PAK", "flag": "🇵🇰",
+    "recentForm": ["W","W","W","L","W"],
+    "battingStrength": 83, "bowlingStrength": 89, "fieldingStrength": 82,
+    "t20WinPct": 62, "odiWinPct": 63, "testWinPct": 55
+  },
+  {
+    "id": "sa",  "name": "South Africa", "shortName": "SA",  "flag": "🇿🇦",
+    "recentForm": ["W","L","W","W","W"],
+    "battingStrength": 84, "bowlingStrength": 87, "fieldingStrength": 90,
+    "t20WinPct": 60, "odiWinPct": 65, "testWinPct": 57
+  },
+  {
+    "id": "nz",  "name": "New Zealand", "shortName": "NZ",  "flag": "🇳🇿",
+    "recentForm": ["L","W","L","W","W"],
+    "battingStrength": 82, "bowlingStrength": 83, "fieldingStrength": 89,
+    "t20WinPct": 58, "odiWinPct": 62, "testWinPct": 56
+  },
+  {
+    "id": "wi",  "name": "West Indies", "shortName": "WI",  "flag": "🌴",
+    "recentForm": ["L","L","W","W","L"],
+    "battingStrength": 80, "bowlingStrength": 79, "fieldingStrength": 80,
+    "t20WinPct": 55, "odiWinPct": 52, "testWinPct": 44
+  },
+  {
+    "id": "sl",  "name": "Sri Lanka", "shortName": "SL",  "flag": "🇱🇰",
+    "recentForm": ["W","L","L","W","W"],
+    "battingStrength": 79, "bowlingStrength": 82, "fieldingStrength": 78,
+    "t20WinPct": 53, "odiWinPct": 58, "testWinPct": 49
+  }
+]

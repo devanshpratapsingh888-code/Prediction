@@ -1,0 +1,44 @@
+[
+  {
+    "id": "wankhede", "name": "Wankhede Stadium", "city": "Mumbai", "country": "India",
+    "avgFirstInningsT20": 172, "avgFirstInningsODI": 281,
+    "chasingSuccessPct": 52, "paceEffectiveness": 65, "spinEffectiveness": 35,
+    "dewFactor": "High", "pitchType": "Flat", "boundarySize": "Small",
+    "notes": "High-scoring venue. Dew heavily favors chasing teams after over 30. Red soil bouncy track."
+  },
+  {
+    "id": "mcg", "name": "Melbourne Cricket Ground", "city": "Melbourne", "country": "Australia",
+    "avgFirstInningsT20": 158, "avgFirstInningsODI": 258,
+    "chasingSuccessPct": 47, "paceEffectiveness": 78, "spinEffectiveness": 22,
+    "dewFactor": "Low", "pitchType": "Seaming", "boundarySize": "Large",
+    "notes": "Large boundaries reduce scoring. Pace bowlers dominate. Defending scores here is advantageous."
+  },
+  {
+    "id": "lords", "name": "Lord's Cricket Ground", "city": "London", "country": "England",
+    "avgFirstInningsT20": 155, "avgFirstInningsODI": 262,
+    "chasingSuccessPct": 49, "paceEffectiveness": 80, "spinEffectiveness": 20,
+    "dewFactor": "Low", "pitchType": "Seaming", "boundarySize": "Medium",
+    "notes": "Famous slope assists right-arm pace. Overcast conditions increase swing and seam."
+  },
+  {
+    "id": "eden-gardens", "name": "Eden Gardens", "city": "Kolkata", "country": "India",
+    "avgFirstInningsT20": 168, "avgFirstInningsODI": 272,
+    "chasingSuccessPct": 54, "paceEffectiveness": 40, "spinEffectiveness": 60,
+    "dewFactor": "High", "pitchType": "Turning", "boundarySize": "Medium",
+    "notes": "Spin-friendly surface. Large crowd atmosphere. Dew plays big role in night games."
+  },
+  {
+    "id": "newlands", "name": "Newlands", "city": "Cape Town", "country": "South Africa",
+    "avgFirstInningsT20": 161, "avgFirstInningsODI": 266,
+    "chasingSuccessPct": 46, "paceEffectiveness": 82, "spinEffectiveness": 18,
+    "dewFactor": "None", "pitchType": "Seaming", "boundarySize": "Medium",
+    "notes": "Mountain backdrop. Consistent swing and seam. Pace bowlers thrive all day."
+  },
+  {
+    "id": "dubai", "name": "Dubai International Stadium", "city": "Dubai", "country": "UAE",
+    "avgFirstInningsT20": 149, "avgFirstInningsODI": 245,
+    "chasingSuccessPct": 58, "paceEffectiveness": 45, "spinEffectiveness": 55,
+    "dewFactor": "Medium", "pitchType": "Slow & Low", "boundarySize": "Large",
+    "notes": "Spin is king. Slow surface makes stroke play difficult. Chasing teams benefit from dew."
+  }
+]
