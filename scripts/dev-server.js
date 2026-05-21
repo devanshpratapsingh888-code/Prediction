@@ -4,27 +4,42 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// 1. Manually parse .env file to support older Node versions
+// 1. Manually parse .env file to support all Node versions
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const envPath = path.join(__dirname, '../.env');
-let apiKey = '';
+let geminiKey = '';
+let openRouterKey = '';
+let openRouterModel = 'google/gemma-2-9b-it:free'; // High-quality free model
 
 try {
   if (fs.existsSync(envPath)) {
     const envContent = fs.readFileSync(envPath, 'utf8');
-    const matches = envContent.match(/^GEMINI_API_KEY=(.*)$/m);
-    if (matches && matches[1]) {
-      apiKey = matches[1].trim();
+    
+    const geminiMatches = envContent.match(/^GEMINI_API_KEY=(.*)$/m);
+    if (geminiMatches && geminiMatches[1]) {
+      geminiKey = geminiMatches[1].trim();
+    }
+    
+    const openRouterMatches = envContent.match(/^OPENROUTER_API_KEY=(.*)$/m);
+    if (openRouterMatches && openRouterMatches[1]) {
+      openRouterKey = openRouterMatches[1].trim();
+    }
+    
+    const modelMatches = envContent.match(/^OPENROUTER_MODEL=(.*)$/m);
+    if (modelMatches && modelMatches[1]) {
+      openRouterModel = modelMatches[1].trim();
     }
   }
 } catch (err) {
   console.error('Failed to read .env file:', err);
 }
 
-if (!apiKey) {
-  console.warn('⚠️ GEMINI_API_KEY not found in local .env file. Direct Gemini calls will fail.');
-} else {
+if (openRouterKey) {
+  console.log(`✅ Loaded OPENROUTER_API_KEY from local .env (using model: ${openRouterModel})`);
+} else if (geminiKey) {
   console.log('✅ Loaded GEMINI_API_KEY from local .env');
+} else {
+  console.warn('⚠️ Neither GEMINI_API_KEY nor OPENROUTER_API_KEY configured in local .env');
 }
 
 // 2. Create the server on port 3001
@@ -56,22 +71,55 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        if (!apiKey) {
+        if (!openRouterKey && !geminiKey) {
           res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'GEMINI_API_KEY not configured in local .env' }));
+          res.end(JSON.stringify({ error: 'Neither OPENROUTER_API_KEY nor GEMINI_API_KEY is configured in local .env' }));
           return;
         }
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: 'gemini-2.0-flash',
-          generationConfig: {
-            responseMimeType: 'application/json',
-          },
-        });
+        let text = '';
 
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
+        if (openRouterKey) {
+          // Call OpenRouter API
+          const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${openRouterKey}`,
+              'HTTP-Referer': 'http://localhost:3000',
+              'X-Title': 'Cricket Strategy Engine'
+            },
+            body: JSON.stringify({
+              model: openRouterModel,
+              messages: [
+                { role: 'user', content: prompt }
+              ]
+            })
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`);
+          }
+
+          const json = await response.json();
+          if (!json.choices || json.choices.length === 0) {
+            throw new Error('OpenRouter returned an empty response choices list');
+          }
+          text = json.choices[0].message.content;
+        } else {
+          // Call Google Gemini API
+          const genAI = new GoogleGenerativeAI(geminiKey);
+          const model = genAI.getGenerativeModel({
+            model: 'gemini-2.0-flash',
+            generationConfig: {
+              responseMimeType: 'application/json',
+            },
+          });
+
+          const result = await model.generateContent(prompt);
+          text = result.response.text();
+        }
 
         let parsed;
         try {
